@@ -60,6 +60,18 @@ alter table posts enable row level security;
 create policy "Insert reservations" on reservations for insert with check (true);
 create policy "Insert contacts" on contacts for insert with check (true);
 
+-- Table du contenu dynamique du site
+create table if not exists contenu_site (
+  id uuid default gen_random_uuid() primary key,
+  cle text unique not null,
+  valeur text not null,
+  updated_at timestamp with time zone default now()
+);
+
+alter table contenu_site enable row level security;
+create policy "Read contenu public" on contenu_site for select using (true);
+create policy "Admin all contenu" on contenu_site for all using (auth.role() = 'authenticated');
+
 -- Table des avis clients
 create table if not exists avis (
   id uuid default gen_random_uuid() primary key,

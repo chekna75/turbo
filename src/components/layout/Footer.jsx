@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import { Shield, Phone, Mail, MapPin } from 'lucide-react'
+import { useContent } from '../../hooks/useContent'
 
 export default function Footer() {
+  const { c } = useContent()
   return (
     <footer className="bg-dark-800 border-t border-dark-600 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,9 +19,7 @@ export default function Footer() {
                 <span className="block text-xs tracking-widest text-gold-400 uppercase">Sécurity</span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Protection rapprochée d'excellence. Discrétion, professionnalisme et sécurité absolue pour nos clients.
-            </p>
+            <p className="text-gray-400 text-sm leading-relaxed">{c('footer_description')}</p>
           </div>
 
           {/* Links */}
@@ -49,15 +49,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Phone className="w-4 h-4 text-gold-500 flex-shrink-0" />
-                +33 1 00 00 00 00
+                {c('contact_telephone')}
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <Mail className="w-4 h-4 text-gold-500 flex-shrink-0" />
-                contact@turbosecurity.fr
+                {c('contact_email')}
               </li>
               <li className="flex items-center gap-3 text-sm text-gray-400">
                 <MapPin className="w-4 h-4 text-gold-500 flex-shrink-0" />
-                Paris, France
+                {c('contact_adresse')}
               </li>
             </ul>
           </div>

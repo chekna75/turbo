@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Users, CalendarCheck, FileText,
-  LogOut, Shield, Menu, X, ChevronRight, CalendarDays, Star
+  LogOut, Shield, Menu, X, ChevronRight, CalendarDays, Star, PenLine
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 
@@ -12,7 +12,8 @@ const sidebarLinks = [
   { path: '/admin/agents', label: 'Agents', icon: Users },
   { path: '/admin/planning', label: 'Planning', icon: CalendarDays },
   { path: '/admin/avis', label: 'Avis clients', icon: Star },
-  { path: '/admin/posts', label: 'Contenus', icon: FileText },
+  { path: '/admin/contenu', label: 'Textes du site', icon: PenLine },
+  { path: '/admin/posts', label: 'Actualités', icon: FileText },
 ]
 
 export default function AdminLayout({ children }) {

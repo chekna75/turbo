@@ -2,6 +2,7 @@ import { Shield, Award, Users, Target } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import GlowOrb from '../../components/ui/GlowOrb'
 import ScrollReveal from '../../components/ui/ScrollReveal'
+import { useContent } from '../../hooks/useContent'
 
 const values = [
   { icon: Shield, title: 'Discrétion', desc: 'La confidentialité de nos clients est sacrée. Chaque agent signe un accord de non-divulgation strict.' },
@@ -18,6 +19,7 @@ const team = [
 ]
 
 export default function About() {
+  const { c } = useContent()
   return (
     <div className="bg-dark-900">
       {/* Hero */}
@@ -27,11 +29,8 @@ export default function About() {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <ScrollReveal direction="fade">
           <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">Qui sommes-nous</p>
-          <h1 className="section-title text-4xl md:text-5xl mb-4">À Propos de Turbo Sécurity</h1>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Fondée par d'anciens membres des forces spéciales françaises, Turbo Sécurity est
-            la référence en matière de protection rapprochée haut de gamme.
-          </p>
+          <h1 className="section-title text-4xl md:text-5xl mb-4">{c('apropos_titre')}</h1>
+          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">{c('apropos_sous_titre')}</p>
           </ScrollReveal>
         </div>
       </section>
@@ -46,20 +45,9 @@ export default function About() {
               <p className="text-gold-400 text-sm tracking-widest uppercase font-medium mb-3">Notre Histoire</p>
               <h2 className="section-title mb-6">15 ans d'excellence au service de la sécurité</h2>
               <div className="space-y-4 text-gray-400 leading-relaxed">
-                <p>
-                  Fondée en 2009, Turbo Sécurity est née de la volonté de créer une société de protection
-                  rapprochée alliant expertise militaire et service de luxe. Nos fondateurs, anciens membres
-                  d'unités d'élite, ont développé des protocoles uniques inspirés des meilleures pratiques mondiales.
-                </p>
-                <p>
-                  Aujourd'hui, nous protégeons plus de 500 clients à travers le monde : chefs d'État, dirigeants
-                  de multinationales, artistes internationaux et familles fortunées. Notre réputation repose
-                  sur une discrétion absolue et un professionnalisme irréprochable.
-                </p>
-                <p>
-                  Chaque agent Turbo Sécurity est sélectionné parmi les meilleurs profils militaires et civils,
-                  puis formé à nos protocoles exclusifs avant d'être déployé en mission.
-                </p>
+                <p>{c('apropos_histoire_p1')}</p>
+                <p>{c('apropos_histoire_p2')}</p>
+                <p>{c('apropos_histoire_p3')}</p>
               </div>
             </div>
             </ScrollReveal>

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { Phone, Mail, MapPin, CheckCircle, Loader } from 'lucide-react'
+import { useContent } from '../../hooks/useContent'
 
 export default function Contact() {
+  const { c } = useContent()
   const [form, setForm] = useState({ nom: '', email: '', sujet: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -31,10 +33,8 @@ export default function Contact() {
       <section className="py-20 px-4 bg-dark-800 border-b border-dark-600">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gold-400 text-sm tracking-widest uppercase font-medium mb-3">Contact</p>
-          <h1 className="section-title text-4xl md:text-5xl mb-4">Contactez-nous</h1>
-          <p className="text-gray-400 max-w-xl mx-auto">
-            Notre équipe est disponible 24h/24 pour répondre à vos questions.
-          </p>
+          <h1 className="section-title text-4xl md:text-5xl mb-4">{c('contact_titre')}</h1>
+          <p className="text-gray-400 max-w-xl mx-auto">{c('contact_sous_titre')}</p>
         </div>
       </section>
 
@@ -52,9 +52,9 @@ export default function Contact() {
 
             <div className="space-y-4">
               {[
-                { icon: Phone, label: 'Téléphone', value: '+33 1 00 00 00 00' },
-                { icon: Mail, label: 'Email', value: 'contact@turbosecurity.fr' },
-                { icon: MapPin, label: 'Adresse', value: 'Paris, France' },
+                { icon: Phone,  label: 'Téléphone', value: c('contact_telephone') },
+                { icon: Mail,   label: 'Email',     value: c('contact_email') },
+                { icon: MapPin, label: 'Adresse',   value: c('contact_adresse') },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="card-dark p-4 flex items-start gap-3">
                   <div className="w-8 h-8 bg-gold-500/10 rounded-sm flex items-center justify-center flex-shrink-0">

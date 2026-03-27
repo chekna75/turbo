@@ -7,28 +7,22 @@ import ReviewsSection from '../../components/ui/ReviewsSection'
 import LatestPosts from '../../components/ui/LatestPosts'
 import { useScrollReveal } from '../../hooks/useScrollReveal'
 import { useCounterAnimation } from '../../hooks/useCounterAnimation'
+import { useContent } from '../../hooks/useContent'
 
-const services = [
-  { icon: Shield, title: 'Protection VIP', desc: 'Garde du corps dédié pour personnalités, dirigeants et célébrités. Disponible 24h/24.' },
-  { icon: Eye,    title: 'Escorte Sécurisée', desc: 'Déplacements sécurisés avec véhicule blindé et agents formés aux situations de crise.' },
-  { icon: Lock,   title: 'Sécurité Événementielle', desc: 'Gestion complète de la sécurité pour vos événements privés et professionnels.' },
-  { icon: Zap,    title: 'Intervention Rapide', desc: "Équipes d'intervention disponibles en moins de 15 minutes sur Paris et région." },
-]
+const serviceIcons = [Shield, Eye, Lock, Zap]
 
-const statsData = [
-  { numeric: 500, suffix: '+', label: 'Clients protégés' },
-  { numeric: 15,  suffix: '+', label: "Ans d'expérience" },
-  { numeric: 98,  suffix: '%', label: 'Taux de satisfaction' },
-  { numeric: null, suffix: '24/7', label: 'Disponibilité' },
-]
+function StatItem({ valeur, label }) {
+  const numeric = parseInt(valeur)
+  const suffix  = valeur?.replace(/[0-9]/g, '') || ''
+  const isNumeric = !isNaN(numeric) && suffix !== valeur
 
-function StatItem({ numeric, suffix, label }) {
   const { ref, isVisible } = useScrollReveal()
-  const count = useCounterAnimation(numeric, 1800, isVisible)
+  const count = useCounterAnimation(isNumeric ? numeric : null, 1800, isVisible)
+
   return (
     <div ref={ref} className="text-center">
       <div className="font-serif text-4xl font-bold text-gold-400 mb-1">
-        {numeric !== null ? `${count}${suffix}` : suffix}
+        {isNumeric ? `${count}${suffix}` : valeur}
       </div>
       <div className="text-gray-400 text-sm">{label}</div>
     </div>
@@ -36,79 +30,70 @@ function StatItem({ numeric, suffix, label }) {
 }
 
 export default function Home() {
+  const { c } = useContent()
+
+  const services = [1,2,3,4].map(i => ({
+    icon: serviceIcons[i-1],
+    titre: c(`service${i}_titre`),
+    desc:  c(`service${i}_desc`),
+  }))
+
+  const stats = [1,2,3,4].map(i => ({
+    valeur: c(`stat${i}_valeur`),
+    label:  c(`stat${i}_label`),
+  }))
+
   return (
     <div className="bg-dark-900">
       {/* ─── Hero ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-
-        {/* Background video */}
         <video
           className="absolute inset-0 w-full h-full object-cover z-0"
-          autoPlay
-          muted
-          loop
-          playsInline
+          autoPlay muted loop playsInline
           poster="/hero-poster.jpg"
         >
           <source src="/hero-video.mp4" type="video/mp4" />
           <source src="/hero-video.webm" type="video/webm" />
         </video>
 
-        {/* Dark overlay — rend le texte lisible */}
         <div className="absolute inset-0 bg-dark-900/70 z-[1]" />
-
-        {/* Gold gradient overlay en bas */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark-900 to-transparent z-[1]" />
 
-        {/* Animated particles (par-dessus la vidéo) */}
         <ParticleCanvas />
 
-        {/* Diagonal grid subtle */}
         <div className="absolute inset-0 opacity-[0.025] z-[2]"
           style={{ backgroundImage: 'repeating-linear-gradient(45deg, #d4971a 0, #d4971a 1px, transparent 0, transparent 50%)', backgroundSize: '22px 22px' }}
         />
 
-        {/* Orbs */}
         <GlowOrb className="w-[500px] h-[500px] -top-40 -right-40 opacity-15 z-[2]" />
         <GlowOrb className="w-80 h-80 bottom-0 -left-20 opacity-8 z-[2]" slow />
-        <GlowOrb className="w-60 h-60 top-1/3 left-1/4 opacity-8 z-[2]" slow />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center" style={{ zIndex: 10 }}>
-          {/* Badge */}
+        <div className="relative max-w-5xl mx-auto px-4 text-center" style={{ zIndex: 10 }}>
           <div className="hero-animate inline-flex items-center gap-2 border border-gold-500/30 bg-gold-500/5 px-4 py-2 rounded-sm mb-8 badge-pulse">
             <Shield className="w-4 h-4 text-gold-400" />
             <span className="text-gold-400 text-sm tracking-widest uppercase font-medium">
-              Protection d'Excellence
+              {c('hero_badge')}
             </span>
           </div>
 
-          {/* Headline */}
           <h1 className="hero-animate-delay-1 font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Votre sécurité,
-            <br />
-            <span className="text-shimmer">notre priorité absolue</span>
+            <span className="text-shimmer">{c('hero_titre')}</span>
           </h1>
 
-          {/* Sub */}
           <p className="hero-animate-delay-2 text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Turbo Sécurity vous offre une protection rapprochée sur mesure.
-            Agents hautement qualifiés, discrétion totale, disponibilité permanente.
+            {c('hero_sous_titre')}
           </p>
 
-          {/* CTAs */}
           <div className="hero-animate-delay-3 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/reservation" className="btn-gold inline-flex items-center gap-2 text-base">
-              Réserver une protection
-              <ChevronRight className="w-4 h-4" />
+              {c('hero_cta1')} <ChevronRight className="w-4 h-4" />
             </Link>
             <Link to="/services" className="btn-outline-gold inline-flex items-center gap-2 text-base">
-              Nos services
+              {c('hero_cta2')}
             </Link>
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <div className="w-px h-10 bg-gradient-to-b from-transparent to-gold-500 animate-pulse" />
         </div>
@@ -119,8 +104,8 @@ export default function Home() {
         <GlowOrb className="w-96 h-24 top-0 left-1/4 opacity-20" slow />
         <div className="max-w-7xl mx-auto px-4 py-14 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {statsData.map((s, i) => (
-              <ScrollReveal key={s.label} direction="up" delay={`${i * 100}ms`}>
+            {stats.map((s, i) => (
+              <ScrollReveal key={i} direction="up" delay={`${i * 100}ms`}>
                 <StatItem {...s} />
               </ScrollReveal>
             ))}
@@ -138,20 +123,17 @@ export default function Home() {
             <ScrollReveal direction="fade">
               <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">Nos Expertises</p>
               <h2 className="section-title mb-4">Des services sur mesure</h2>
-              <p className="text-gray-400 max-w-xl mx-auto">
-                Une gamme complète de services de protection adaptés à vos besoins spécifiques.
-              </p>
             </ScrollReveal>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map(({ icon: Icon, title, desc }, i) => (
-              <ScrollReveal key={title} direction="up" delay={`${i * 100}ms`}>
+            {services.map(({ icon: Icon, titre, desc }, i) => (
+              <ScrollReveal key={i} direction="up" delay={`${i * 100}ms`}>
                 <div className="card-dark glowing-card p-6 h-full">
-                  <div className="w-12 h-12 bg-gold-500/10 border border-gold-500/20 rounded-sm flex items-center justify-center mb-4 transition-colors group-hover:bg-gold-500/20">
+                  <div className="w-12 h-12 bg-gold-500/10 border border-gold-500/20 rounded-sm flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6 text-gold-400" />
                   </div>
-                  <h3 className="text-white font-semibold mb-2">{title}</h3>
+                  <h3 className="text-white font-semibold mb-2">{titre}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
                 </div>
               </ScrollReveal>
@@ -175,20 +157,15 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left */}
             <ScrollReveal direction="left">
               <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">Pourquoi nous choisir</p>
               <h2 className="section-title mb-6">L'excellence au service<br />de votre sécurité</h2>
-              <p className="text-gray-400 mb-8 leading-relaxed">
-                Fondée sur des valeurs de rigueur et de discrétion, Turbo Sécurity réunit des professionnels
-                issus des forces spéciales et des services de renseignement.
-              </p>
               <ul className="space-y-4">
                 {[
                   { icon: Award, text: 'Agents certifiés et formés aux meilleures techniques' },
                   { icon: Shield, text: 'Protocoles de sécurité adaptés à chaque situation' },
                   { icon: Users, text: "Équipes disponibles sur toute la France et à l'international" },
-                  { icon: Star, text: 'Confidentialité absolue et discrétion professionnelle' },
+                  { icon: Star,  text: 'Confidentialité absolue et discrétion professionnelle' },
                 ].map(({ icon: Icon, text }, i) => (
                   <ScrollReveal key={text} direction="left" delay={`${i * 80}ms`}>
                     <li className="flex items-start gap-3">
@@ -207,26 +184,15 @@ export default function Home() {
               </div>
             </ScrollReveal>
 
-            {/* Right — stats grid */}
             <ScrollReveal direction="right" delay="150ms">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent rounded-sm pointer-events-none" />
-                <div className="border border-dark-500 rounded-sm p-8 bg-dark-700 relative">
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { label: 'Gardes du corps', value: '45+' },
-                      { label: 'Missions/mois',   value: '120+' },
-                      { label: 'Pays couverts',   value: '12' },
-                      { label: 'Satisfaction',    value: '98%' },
-                    ].map(({ label, value }, i) => (
-                      <ScrollReveal key={label} direction="fade" delay={`${200 + i * 80}ms`}>
-                        <div className="bg-dark-600 border border-dark-500 rounded-sm p-4 text-center glowing-card">
-                          <div className="font-serif text-2xl font-bold text-gold-400 mb-1">{value}</div>
-                          <div className="text-gray-400 text-xs">{label}</div>
-                        </div>
-                      </ScrollReveal>
-                    ))}
-                  </div>
+              <div className="border border-dark-500 rounded-sm p-8 bg-dark-700">
+                <div className="grid grid-cols-2 gap-4">
+                  {stats.map((s, i) => (
+                    <div key={i} className="bg-dark-600 border border-dark-500 rounded-sm p-4 text-center glowing-card">
+                      <div className="font-serif text-2xl font-bold text-gold-400 mb-1">{s.valeur}</div>
+                      <div className="text-gray-400 text-xs">{s.label}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </ScrollReveal>
@@ -243,24 +209,19 @@ export default function Home() {
       {/* ─── CTA ──────────────────────────────────────────── */}
       <section className="relative py-24 px-4 overflow-hidden">
         <GlowOrb className="w-[600px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10" slow />
-
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <ScrollReveal direction="up">
             <div className="border border-gold-500/20 bg-gold-500/5 glowing-card rounded-sm p-12">
               <div className="w-14 h-14 bg-gold-500/10 border border-gold-500/30 rounded-sm flex items-center justify-center mx-auto mb-6">
                 <Shield className="w-8 h-8 text-gold-400" />
               </div>
-              <h2 className="section-title mb-4">Prêt à sécuriser votre quotidien ?</h2>
-              <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-                Contactez-nous dès aujourd'hui pour une évaluation confidentielle de vos besoins en sécurité.
-              </p>
+              <h2 className="section-title mb-4">{c('cta_titre')}</h2>
+              <p className="text-gray-400 mb-8 max-w-xl mx-auto">{c('cta_texte')}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/reservation" className="btn-gold inline-flex items-center gap-2">
                   Faire une réservation <ChevronRight className="w-4 h-4" />
                 </Link>
-                <Link to="/contact" className="btn-outline-gold">
-                  Nous contacter
-                </Link>
+                <Link to="/contact" className="btn-outline-gold">Nous contacter</Link>
               </div>
             </div>
           </ScrollReveal>

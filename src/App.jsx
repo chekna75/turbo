@@ -18,6 +18,7 @@ import Agents from './pages/admin/Agents'
 import Posts from './pages/admin/Posts'
 import Planning from './pages/admin/Planning'
 import Avis from './pages/admin/Avis'
+import Contenu from './pages/admin/Contenu'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -61,6 +62,9 @@ function App() {
           } />
           <Route path="/admin/avis" element={
             <ProtectedRoute><AdminLayout><Avis /></AdminLayout></ProtectedRoute>
+          } />
+          <Route path="/admin/contenu" element={
+            <ProtectedRoute><AdminLayout><Contenu /></AdminLayout></ProtectedRoute>
           } />
 
           <Route path="*" element={<Navigate to="/" replace />} />
