@@ -14,10 +14,8 @@ dist-ssr
 .env
 .env.local
 
-# Vidéos (trop lourdes pour GitHub)
-public/*.mp4
-public/*.webm
-public/*.mov
+# Vidéos lourdes (si nécessaire, retirer cette règle)
+# public/*.mp4
 
 # Editor directories and files
 .vscode/*
