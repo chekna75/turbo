@@ -22,21 +22,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm overflow-hidden">
-              {logoUrl
-                ? <img src={logoUrl} alt="Logo" className="w-full h-full object-contain p-1" />
-                : <Shield className="w-6 h-6 text-dark-900" />
-              }
-            </div>
-            <div className="text-left">
-              <span className="block font-serif text-lg font-semibold text-white leading-tight">
-                Turbo
-              </span>
-              <span className="block text-xs tracking-widest text-gold-400 uppercase">
-                Sécurity
-              </span>
-            </div>
+          <Link to="/" className="flex items-center">
+            {logoUrl
+              ? <img src={logoUrl} alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
+              : <img src="/logo.svg" alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
+            }
           </Link>
 
           {/* Desktop links */}

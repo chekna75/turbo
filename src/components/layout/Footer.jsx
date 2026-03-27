@@ -10,17 +10,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm overflow-hidden">
-                {c('logo_url')
-                  ? <img src={c('logo_url')} alt="Logo" className="w-full h-full object-contain p-1" />
-                  : <Shield className="w-6 h-6 text-dark-900" />
-                }
-              </div>
-              <div>
-                <span className="block font-serif text-lg font-semibold text-white leading-tight">Turbo</span>
-                <span className="block text-xs tracking-widest text-gold-400 uppercase">Sécurity</span>
-              </div>
+            <Link to="/" className="flex items-center mb-4">
+              {c('logo_url')
+                ? <img src={c('logo_url')} alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
+                : <img src="/logo.svg" alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
+              }
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">{c('footer_description')}</p>
           </div>
