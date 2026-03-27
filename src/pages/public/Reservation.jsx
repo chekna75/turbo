@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { sendConfirmationEmail } from '../../lib/email'
@@ -75,7 +76,13 @@ export default function Reservation() {
   }
 
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="Réservation — Demande de Protection"
+        description="Réservez votre protection rapprochée avec Turbo Sécurity. Formulaire confidentiel et sécurisé. Réponse sous 2h. Protection VIP, escorte, sécurité événementielle."
+        path="/reservation"
+      />
+      <div className="bg-dark-900">
       <section className="py-20 px-4 bg-dark-800 border-b border-dark-600">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gold-400 text-sm tracking-widest uppercase font-medium mb-3">Réservation</p>
@@ -213,5 +220,6 @@ export default function Reservation() {
         </div>
       </section>
     </div>
+    </>
   )
 }

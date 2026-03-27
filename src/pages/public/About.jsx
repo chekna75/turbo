@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { Shield, Award, Users, Target } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import GlowOrb from '../../components/ui/GlowOrb'
@@ -21,7 +22,13 @@ const team = [
 export default function About() {
   const { c } = useContent()
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="À Propos — Notre Histoire &amp; Notre Équipe"
+        description="Fondée par d'anciens membres des forces spéciales, Turbo Sécurity est la référence de la protection rapprochée en France. Découvrez notre histoire, nos valeurs et notre équipe d'élite."
+        path="/a-propos"
+      />
+      <div className="bg-dark-900">
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />
@@ -144,5 +151,6 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   )
 }

@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { Link } from 'react-router-dom'
 import { Shield, Eye, Lock, Zap, Car, Globe, ChevronRight } from 'lucide-react'
 import GlowOrb from '../../components/ui/GlowOrb'
@@ -44,7 +45,13 @@ const services = [
 
 export default function Services() {
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="Nos Services — Protection VIP, Escorte, Sécurité Événementielle"
+        description="Découvrez tous nos services de protection : garde du corps VIP, escorte sécurisée, sécurité événementielle, surveillance, protection internationale. Agents d'élite disponibles 24h/24."
+        path="/services"
+      />
+      <div className="bg-dark-900">
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />
@@ -109,5 +116,6 @@ export default function Services() {
         </div>
       </section>
     </div>
+    </>
   )
 }

@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { Phone, Mail, MapPin, CheckCircle, Loader } from 'lucide-react'
@@ -28,7 +29,13 @@ export default function Contact() {
   }
 
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="Contact — Disponible 24h/24"
+        description="Contactez Turbo Sécurity pour toute demande de protection rapprochée. Notre équipe est disponible 24h/24. Téléphone, email ou formulaire en ligne."
+        path="/contact"
+      />
+      <div className="bg-dark-900">
       {/* Hero */}
       <section className="py-20 px-4 bg-dark-800 border-b border-dark-600">
         <div className="max-w-4xl mx-auto text-center">
@@ -143,5 +150,6 @@ export default function Contact() {
         </div>
       </section>
     </div>
+    </>
   )
 }

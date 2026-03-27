@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { Link } from 'react-router-dom'
 import { Shield, Star, Users, Award, ChevronRight, Eye, Lock, Zap } from 'lucide-react'
 import ParticleCanvas from '../../components/ui/ParticleCanvas'
@@ -44,7 +45,13 @@ export default function Home() {
   }))
 
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="Protection Rapprochée VIP — Paris &amp; International"
+        description="Turbo Sécurity, protection rapprochée d'excellence. Garde du corps VIP, escorte sécurisée, sécurité événementielle. Agents certifiés disponibles 24h/24 à Paris et à l'international."
+        path="/"
+      />
+      <div className="bg-dark-900">
       {/* ─── Hero ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <video
@@ -228,5 +235,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   )
 }

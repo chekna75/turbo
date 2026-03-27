@@ -1,3 +1,4 @@
+import SEO from '../../components/ui/SEO'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import ScrollReveal from '../../components/ui/ScrollReveal'
@@ -78,7 +79,13 @@ export default function Actualites() {
   const filtered = filter === 'all' ? posts : posts.filter(p => p.categorie === filter)
 
   return (
-    <div className="bg-dark-900">
+    <>
+      <SEO
+        title="Actualités — Conseils &amp; Informations Sécurité"
+        description="Retrouvez toutes les actualités, conseils et informations de Turbo Sécurity sur la protection rapprochée, la sécurité VIP et les meilleures pratiques du secteur."
+        path="/actualites"
+      />
+      <div className="bg-dark-900">
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />
@@ -135,5 +142,6 @@ export default function Actualites() {
         </div>
       </section>
     </div>
+    </>
   )
 }
