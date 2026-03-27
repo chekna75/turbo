@@ -1,8 +1,101 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import { defaultContent, } from '../../lib/defaultContent'
+import { defaultContent } from '../../lib/defaultContent'
 import { invalidateContentCache } from '../../hooks/useContent'
-import { Save, Check, ChevronDown, ChevronUp, Globe } from 'lucide-react'
+import { Save, Check, ChevronDown, ChevronUp, Globe, Upload, ImageIcon, Loader } from 'lucide-react'
+
+function LogoUploader({ currentUrl, onSaved }) {
+  const inputRef = useRef(null)
+  const [preview, setPreview] = useState(currentUrl || null)
+  const [uploading, setUploading] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  const handleFile = async e => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    // Preview local immédiat
+    setPreview(URL.createObjectURL(file))
+    setUploading(true)
+
+    const ext = file.name.split('.').pop()
+    const path = `logo/logo.${ext}`
+
+    const { error: uploadError } = await supabase.storage
+      .from('assets')
+      .upload(path, file, { upsert: true, contentType: file.type })
+
+    if (uploadError) {
+      alert('Erreur upload : ' + uploadError.message)
+      setUploading(false)
+      return
+    }
+
+    const { data } = supabase.storage.from('assets').getPublicUrl(path)
+    const url = data.publicUrl
+
+    // Sauvegarde l'URL dans contenu_site
+    await supabase.from('contenu_site').upsert(
+      [{ cle: 'logo_url', valeur: url }],
+      { onConflict: 'cle' }
+    )
+
+    invalidateContentCache()
+    setPreview(url)
+    setUploading(false)
+    setSaved(true)
+    onSaved(url)
+    setTimeout(() => setSaved(false), 3000)
+  }
+
+  return (
+    <div className="card-dark overflow-hidden">
+      <div className="px-6 py-4 border-b border-dark-500 flex items-center justify-between">
+        <span className="text-white font-medium text-sm">Logo de la société</span>
+        {saved && (
+          <span className="flex items-center gap-1 text-green-400 text-xs">
+            <Check className="w-3.5 h-3.5" /> Sauvegardé
+          </span>
+        )}
+      </div>
+
+      <div className="p-6 flex flex-col sm:flex-row items-start gap-6">
+        {/* Aperçu */}
+        <div className="w-40 h-24 bg-dark-600 border border-dark-400 rounded-sm flex items-center justify-center flex-shrink-0 overflow-hidden">
+          {preview
+            ? <img src={preview} alt="Logo" className="max-w-full max-h-full object-contain p-2" />
+            : <ImageIcon className="w-8 h-8 text-dark-400" />
+          }
+        </div>
+
+        {/* Upload */}
+        <div className="flex-1">
+          <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+            Formats acceptés : PNG, JPG, SVG, WEBP. Le logo remplace automatiquement
+            l'icône bouclier dans la navbar et le footer.
+          </p>
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFile}
+          />
+          <button
+            onClick={() => inputRef.current.click()}
+            disabled={uploading}
+            className="btn-gold inline-flex items-center gap-2 text-sm disabled:opacity-70"
+          >
+            {uploading
+              ? <><Loader className="w-4 h-4 animate-spin" /> Upload en cours...</>
+              : <><Upload className="w-4 h-4" /> Choisir un logo</>
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const sections = [
   {
@@ -148,9 +241,10 @@ function SectionEditor({ section, values, onChange, onSave, saving, saved }) {
 
 export default function Contenu() {
   const [values, setValues] = useState({ ...defaultContent })
-  const [saving, setSaving] = useState(null)   // section id en cours
-  const [saved, setSaved]   = useState({})     // { sectionId: true }
+  const [saving, setSaving] = useState(null)
+  const [saved, setSaved]   = useState({})
   const [loading, setLoading] = useState(true)
+  const [logoUrl, setLogoUrl] = useState('')
 
   useEffect(() => {
     supabase.from('contenu_site').select('cle, valeur').then(({ data }) => {
@@ -158,6 +252,7 @@ export default function Contenu() {
         const merged = { ...defaultContent }
         data.forEach(row => { merged[row.cle] = row.valeur })
         setValues(merged)
+        setLogoUrl(merged.logo_url || '')
       }
       setLoading(false)
     })
@@ -203,6 +298,10 @@ export default function Contenu() {
         <div className="text-center text-gray-400 py-12 text-sm">Chargement du contenu...</div>
       ) : (
         <div className="space-y-3">
+          <LogoUploader
+            currentUrl={logoUrl}
+            onSaved={url => setLogoUrl(url)}
+          />
           {sections.map(section => (
             <SectionEditor
               key={section.id}

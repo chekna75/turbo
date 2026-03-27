@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Shield } from 'lucide-react'
+import { useContent } from '../../hooks/useContent'
 
 const navLinks = [
   { path: '/', label: 'Accueil' },
@@ -13,6 +14,8 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const { c } = useContent()
+  const logoUrl = c('logo_url')
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-dark-900/95 backdrop-blur border-b border-dark-600">
@@ -20,8 +23,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm">
-              <Shield className="w-6 h-6 text-dark-900" />
+            <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm overflow-hidden">
+              {logoUrl
+                ? <img src={logoUrl} alt="Logo" className="w-full h-full object-contain p-1" />
+                : <Shield className="w-6 h-6 text-dark-900" />
+              }
             </div>
             <div className="text-left">
               <span className="block font-serif text-lg font-semibold text-white leading-tight">

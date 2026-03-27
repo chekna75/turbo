@@ -11,8 +11,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm">
-                <Shield className="w-6 h-6 text-dark-900" />
+              <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center rounded-sm overflow-hidden">
+                {c('logo_url')
+                  ? <img src={c('logo_url')} alt="Logo" className="w-full h-full object-contain p-1" />
+                  : <Shield className="w-6 h-6 text-dark-900" />
+                }
               </div>
               <div>
                 <span className="block font-serif text-lg font-semibold text-white leading-tight">Turbo</span>
