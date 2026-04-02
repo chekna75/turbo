@@ -243,6 +243,7 @@ export default function Contenu() {
   const [values, setValues] = useState({ ...defaultContent })
   const [saving, setSaving] = useState(null)
   const [saved, setSaved]   = useState({})
+  const [saveError, setSaveError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [logoUrl, setLogoUrl] = useState('')
 
@@ -262,15 +263,22 @@ export default function Contenu() {
 
   const handleSave = async (sectionId, keys) => {
     setSaving(sectionId)
+    setSaveError(null)
 
     const upserts = keys.map(key => ({ cle: key, valeur: values[key] ?? '' }))
 
-    await supabase
+    const { error } = await supabase
       .from('contenu_site')
       .upsert(upserts, { onConflict: 'cle' })
 
-    invalidateContentCache()
     setSaving(null)
+
+    if (error) {
+      setSaveError(`Erreur lors de la sauvegarde : ${error.message}`)
+      return
+    }
+
+    invalidateContentCache()
     setSaved(prev => ({ ...prev, [sectionId]: true }))
     setTimeout(() => setSaved(prev => ({ ...prev, [sectionId]: false })), 3000)
   }
@@ -293,6 +301,12 @@ export default function Contenu() {
           <Globe className="w-4 h-4" /> Voir le site
         </a>
       </div>
+
+      {saveError && (
+        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-sm">
+          {saveError}
+        </div>
+      )}
 
       {loading ? (
         <div className="text-center text-gray-400 py-12 text-sm">Chargement du contenu...</div>
