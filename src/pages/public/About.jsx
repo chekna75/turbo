@@ -87,6 +87,36 @@ export default function About() {
         </div>
       </section>
 
+      {/* Videos */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        <GlowOrb className="w-96 h-96 top-0 left-0 opacity-8" slow />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <ScrollReveal direction="fade">
+              <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">En Action</p>
+              <h2 className="section-title">Nos équipes sur le terrain</h2>
+            </ScrollReveal>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {['/video1.mp4', '/video2.mp4'].map((src, i) => (
+              <ScrollReveal key={i} direction={i === 0 ? 'left' : 'right'} delay={`${i * 150}ms`}>
+                <div className="relative rounded-sm overflow-hidden border border-dark-500 glowing-card group">
+                  <video
+                    className="w-full aspect-video object-cover"
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={src} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 border border-gold-500/10 rounded-sm pointer-events-none group-hover:border-gold-500/30 transition-colors duration-300" />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="relative py-20 px-4 bg-dark-800 border-y border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-32 top-0 left-1/2 -translate-x-1/2 opacity-15" slow />

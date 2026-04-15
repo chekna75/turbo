@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import SEO from '../../components/ui/SEO'
 import { Link } from 'react-router-dom'
 import { Shield, Star, Users, Award, ChevronRight, Eye, Lock, Zap } from 'lucide-react'
@@ -30,8 +31,15 @@ function StatItem({ valeur, label }) {
   )
 }
 
+const heroVideos = ['/video1.mp4', '/video2.mp4']
+
 export default function Home() {
   const { c } = useContent()
+  const [currentVideo, setCurrentVideo] = useState(0)
+
+  const handleVideoEnd = () => {
+    setCurrentVideo(prev => (prev + 1) % heroVideos.length)
+  }
 
   const services = [1,2,3,4].map(i => ({
     icon: serviceIcons[i-1],
@@ -53,14 +61,14 @@ export default function Home() {
       />
       <div className="bg-dark-900">
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-screen flex items-center justify-center overflow-hidden">
         <video
+          key={currentVideo}
           className="absolute inset-0 w-full h-full object-cover z-0"
-          autoPlay muted loop playsInline
-          poster="/hero-poster.jpg"
+          autoPlay muted playsInline
+          onEnded={handleVideoEnd}
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/hero-video.webm" type="video/webm" />
+          <source src={heroVideos[currentVideo]} type="video/mp4" />
         </video>
 
         <div className="absolute inset-0 bg-dark-900/70 z-[1]" />
