@@ -1,4 +1,5 @@
 import SEO from '../../components/ui/SEO'
+import Breadcrumb from '../../components/ui/Breadcrumb'
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import ScrollReveal from '../../components/ui/ScrollReveal'
@@ -86,6 +87,7 @@ export default function Actualites() {
         path="/actualites"
       />
       <div className="bg-dark-900">
+      <Breadcrumb />
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />

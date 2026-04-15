@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "Accueil", "services": "Services", "about": "À Propos",
+    "news": "Actualités", "contact": "Contact", "book": "Réserver"
+  },
+  "footer": {
+    "nav": "Navigation", "rights": "Tous droits réservés.", "tagline": "Protection rapprochée professionnelle"
+  },
+  "cookie": {
+    "title": "Cookies & Confidentialité",
+    "text": "Nous utilisons des cookies pour améliorer votre expérience. Conformément au RGPD, votre consentement est requis.",
+    "accept": "Accepter", "refuse": "Refuser"
+  },
+  "common": {
+    "learn_more": "En savoir plus", "all_services": "Voir tous les services",
+    "book_now": "Réserver maintenant", "contact_us": "Nous contacter",
+    "confidential_form": "Formulaire confidentiel et sécurisé",
+    "send": "Envoyer", "sending": "Envoi en cours...", "loading": "Chargement..."
+  },
+  "services_page": {
+    "seo_title": "Nos Services — Protection VIP, Escorte, Sécurité Événementielle",
+    "seo_desc": "Découvrez tous nos services de protection : garde du corps VIP, escorte sécurisée, sécurité événementielle, surveillance, protection internationale. Agents d'élite disponibles 24h/24.",
+    "badge": "Nos Prestations",
+    "title": "Services de Protection",
+    "subtitle": "Une gamme complète de solutions de sécurité adaptées à vos besoins, assurée par des professionnels d'élite.",
+    "flagship": "Phare",
+    "cta_title": "Besoin d'un service personnalisé ?",
+    "cta_subtitle": "Chaque situation est unique. Contactez-nous pour une évaluation sur mesure.",
+    "items": [
+      {
+        "title": "Protection VIP",
+        "desc": "Service de garde du corps dédié pour personnalités, dirigeants d'entreprise, artistes et célébrités. Nos agents assurent votre sécurité 24h/24, 7j/7 avec une discrétion absolue.",
+        "features": ["Analyse des menaces", "Garde rapprochée permanente", "Coordination avec les forces de l'ordre", "Rapport quotidien"]
+      },
+      {
+        "title": "Escorte Sécurisée",
+        "desc": "Déplacements sécurisés avec véhicules blindés et chauffeurs formés aux techniques anti-agression et à la conduite d'exception.",
+        "features": ["Véhicules blindés de grade B6/B7", "Chauffeurs certifiés", "Itinéraires sécurisés", "Contre-surveillance"]
+      },
+      {
+        "title": "Sécurité Événementielle",
+        "desc": "Gestion complète de la sécurité pour vos événements privés, soirées VIP, séminaires et conférences.",
+        "features": ["Contrôle d'accès", "Gestion des foules", "Agents en civil ou uniforme", "Coordination logistique"]
+      },
+      {
+        "title": "Surveillance & Reconnaissance",
+        "desc": "Missions de surveillance et de renseignement pour identifier et neutraliser les menaces potentielles avant qu'elles ne se concrétisent.",
+        "features": ["Surveillance statique", "Contre-surveillance", "Rapport de menaces", "Analyse de risques"]
+      },
+      {
+        "title": "Protection Internationale",
+        "desc": "Accompagnement sécurisé lors de vos déplacements à l'international, avec coordination des équipes locales.",
+        "features": ["Couverture dans 12 pays", "Coordination réseau local", "Analyse géopolitique", "Gestion de crise"]
+      },
+      {
+        "title": "Intervention Rapide",
+        "desc": "Équipes d'intervention disponibles en moins de 15 minutes sur Paris et la région Île-de-France.",
+        "features": ["Délai < 15 min à Paris", "Équipes formées CQC", "Matériel adapté", "Disponible 24/7"]
+      }
+    ],
+    "faq_title": "Questions fréquentes",
+    "faqs": [
+      { "q": "Combien de temps à l'avance faut-il réserver ?", "r": "Nous recommandons 48h minimum pour les missions standard. Pour les missions internationales ou événementielles, prévoyez 1 semaine. En cas d'urgence, notre ligne est disponible 24h/24." },
+      { "q": "Vos agents sont-ils armés ?", "r": "Cela dépend du niveau de menace évalué et des réglementations locales. Nos agents sont tous formés aux techniques de protection rapprochée, avec ou sans arme selon les besoins et autorisations." },
+      { "q": "Intervenez-vous à l'international ?", "r": "Oui, nous opérons dans 12 pays. Chaque mission internationale fait l'objet d'une analyse géopolitique préalable et d'une coordination avec des partenaires locaux certifiés." },
+      { "q": "Comment garantissez-vous la confidentialité ?", "r": "Chaque agent signe un accord de non-divulgation strict. Nos systèmes de communication sont chiffrés. Aucune information client n'est partagée sans consentement explicite." },
+      { "q": "Quels sont vos tarifs ?", "r": "Nos tarifs sont établis sur devis selon la mission, le nombre d'agents, la durée et le niveau de menace. Contactez-nous pour une consultation confidentielle et gratuite." }
+    ]
+  },
+  "about_page": {
+    "seo_title": "À Propos — Notre Histoire & Notre Équipe",
+    "seo_desc": "Fondée par d'anciens membres des forces spéciales, Turbo Sécurity est la référence de la protection rapprochée en France.",
+    "badge": "Qui sommes-nous",
+    "history_badge": "Notre Histoire",
+    "history_title": "15 ans d'excellence au service de la sécurité",
+    "values_badge": "Nos Valeurs",
+    "values_title": "Ce qui nous définit",
+    "team_badge": "Direction",
+    "team_title": "Notre équipe de direction",
+    "gallery_badge": "Galerie",
+    "gallery_title": "Nos missions en images",
+    "gallery_confidential": "Photos disponibles sur demande — confidentialité de nos clients respectée",
+    "video_badge": "En Action",
+    "video_title": "Nos équipes sur le terrain",
+    "cta_title": "Rejoignez nos clients protégés",
+    "cta_subtitle": "Prenez contact avec notre équipe pour une consultation confidentielle.",
+    "timeline": [
+      { "year": "2009", "event": "Fondation de Turbo Sécurity à Paris" },
+      { "year": "2012", "event": "Extension aux missions internationales" },
+      { "year": "2015", "event": "Création de l'unité d'intervention rapide" },
+      { "year": "2018", "event": "Ouverture du centre de formation interne" },
+      { "year": "2022", "event": "500ème client protégé — couverture dans 12 pays" },
+      { "year": "2024", "event": "Certification ISO 18788 Sécurité privée" }
+    ],
+    "values": [
+      { "title": "Discrétion", "desc": "La confidentialité de nos clients est sacrée. Chaque agent signe un accord de non-divulgation strict." },
+      { "title": "Excellence", "desc": "Nous ne recrutons que des professionnels issus des forces spéciales et des services de renseignement." },
+      { "title": "Équipe", "desc": "Une équipe soudée, entraînée ensemble, capable de coordonner rapidement en situation de crise." },
+      { "title": "Précision", "desc": "Chaque mission est planifiée avec rigueur. Rien n'est laissé au hasard dans notre préparation." }
+    ],
+    "team": [
+      { "name": "Jean-Marc Dubois", "role": "Directeur des Opérations", "exp": "Ex-GIGN · 20 ans d'expérience" },
+      { "name": "Sophie Laurent", "role": "Responsable Renseignement", "exp": "Ex-DGSI · 15 ans d'expérience" },
+      { "name": "Karim Benali", "role": "Chef de Protocole VIP", "exp": "Ex-GSPR · 12 ans d'expérience" },
+      { "name": "Thomas Mercier", "role": "Responsable Opérations Int.", "exp": "Ex-RAID · 18 ans d'expérience" }
+    ],
+    "gallery_items": ["Protection VIP", "Escorte sécurisée", "Événementiel", "Formation", "International"]
+  },
+  "contact_page": {
+    "seo_title": "Contact — Disponible 24h/24",
+    "seo_desc": "Contactez Turbo Sécurity pour toute demande de protection rapprochée. Notre équipe est disponible 24h/24.",
+    "badge": "Contact",
+    "info_badge": "Informations",
+    "urgent": "Pour toute demande urgente, nous vous recommandons de nous appeler directement. Nos opérateurs sont disponibles 24h/24.",
+    "available": "Disponible 24/7",
+    "available_sub": "Ligne d'urgence opérationnelle en permanence.",
+    "phone": "Téléphone", "email": "Email", "address": "Adresse",
+    "send": "Envoyer le message", "sending": "Envoi...",
+    "success_title": "Message envoyé",
+    "success_sub": "Nous vous répondrons dans les plus brefs délais.",
+    "new": "Nouveau message",
+    "fields": { "name": "Nom", "email": "Email", "subject": "Sujet", "message": "Message",
+      "name_ph": "Votre nom", "subject_ph": "Objet de votre message", "message_ph": "Votre message..." }
+  },
+  "reservation_page": {
+    "seo_title": "Réservation — Demande de Protection",
+    "seo_desc": "Réservez votre protection rapprochée avec Turbo Sécurity. Formulaire confidentiel et sécurisé. Réponse sous 2h.",
+    "badge": "Réservation",
+    "title": "Réserver une Protection",
+    "subtitle": "Remplissez ce formulaire confidentiel. Notre équipe vous contactera sous 2h.",
+    "send": "Envoyer la demande", "sending": "Envoi en cours...",
+    "success_title": "Réservation envoyée",
+    "success_sub": "Votre demande a bien été reçue. Notre équipe vous contactera dans les plus brefs délais pour confirmer votre réservation.",
+    "new": "Nouvelle réservation", "track": "Suivre ma réservation",
+    "fields": {
+      "last_name": "Nom", "first_name": "Prénom", "email": "Email", "phone": "Téléphone",
+      "service": "Service souhaité", "start_date": "Date de début", "end_date": "Date de fin",
+      "location": "Lieu / Ville", "agents": "Nombre d'agents", "details": "Détails supplémentaires",
+      "choose_service": "Choisir un service", "location_ph": "Paris, France",
+      "details_ph": "Décrivez votre besoin en sécurité...", "agent": "agent", "agents_pl": "agents"
+    },
+    "services": ["Protection VIP", "Escorte Sécurisée", "Sécurité Événementielle", "Surveillance & Reconnaissance", "Protection Internationale", "Intervention Rapide", "Autre"]
+  },
+  "tracking_page": {
+    "badge": "Suivi",
+    "title": "Votre réservation",
+    "subtitle": "Entrez l'adresse email utilisée lors de votre réservation pour consulter son statut.",
+    "search": "Chercher", "searching": "Recherche...",
+    "not_found": "Aucune réservation trouvée pour cet email.",
+    "statuses": {
+      "en_attente": "En attente de confirmation",
+      "confirmee": "Réservation confirmée",
+      "annulee": "Réservation annulée",
+      "terminee": "Mission terminée"
+    },
+    "fields": { "service": "Service", "location": "Lieu", "start": "Date début", "end": "Date fin", "agents": "Agents", "created": "Demande le" }
+  },
+  "home_page": {
+    "why_badge": "Pourquoi nous choisir",
+    "why_title": "L'excellence au service\nde votre sécurité",
+    "why_items": [
+      "Agents certifiés et formés aux meilleures techniques",
+      "Protocoles de sécurité adaptés à chaque situation",
+      "Équipes disponibles sur toute la France et à l'international",
+      "Confidentialité absolue et discrétion professionnelle"
+    ],
+    "services_badge": "Nos Expertises",
+    "services_title": "Des services sur mesure",
+    "news_see_all": "Voir toutes les actualités"
+  }
+}

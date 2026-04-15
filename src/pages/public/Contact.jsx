@@ -1,7 +1,9 @@
 import SEO from '../../components/ui/SEO'
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import { Phone, Mail, MapPin, CheckCircle, Loader } from 'lucide-react'
+import { Phone, Mail, MapPin, CheckCircle, Loader, Shield } from 'lucide-react'
+import GlowOrb from '../../components/ui/GlowOrb'
+import Breadcrumb from '../../components/ui/Breadcrumb'
 import { useContent } from '../../hooks/useContent'
 
 export default function Contact() {
@@ -36,6 +38,7 @@ export default function Contact() {
         path="/contact"
       />
       <div className="bg-dark-900">
+      <Breadcrumb />
       {/* Hero */}
       <section className="py-20 px-4 bg-dark-800 border-b border-dark-600">
         <div className="max-w-4xl mx-auto text-center">
@@ -45,10 +48,18 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <section className="relative py-20 px-4 overflow-hidden">
+        <GlowOrb className="w-96 h-96 top-0 left-0 opacity-8" slow />
+        <GlowOrb className="w-64 h-64 bottom-0 right-0 opacity-8" />
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 relative z-10">
           {/* Info */}
           <div className="space-y-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-gold-500/10 border border-gold-500/30 rounded-sm flex items-center justify-center flex-shrink-0">
+                <Shield className="w-6 h-6 text-gold-400" />
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-r from-gold-500/40 to-transparent" />
+            </div>
             <div>
               <p className="text-gold-400 text-sm tracking-widest uppercase font-medium mb-4">Informations</p>
               <p className="text-gray-400 text-sm leading-relaxed">

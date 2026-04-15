@@ -73,6 +73,8 @@ export default function Home() {
 
         <div className="absolute inset-0 bg-dark-900/70 z-[1]" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark-900 to-transparent z-[1]" />
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-dark-900/60 to-transparent z-[1]" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-dark-900/60 to-transparent z-[1]" />
 
         <ParticleCanvas />
 
@@ -91,6 +93,11 @@ export default function Home() {
             </span>
           </div>
 
+          <div className="hero-animate-delay-1 flex items-center justify-center gap-4 mb-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold-500" />
+            <div className="w-1.5 h-1.5 bg-gold-400 rounded-full" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold-500" />
+          </div>
           <h1 className="hero-animate-delay-1 font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             <span className="text-shimmer">{c('hero_titre')}</span>
           </h1>

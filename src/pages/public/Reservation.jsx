@@ -1,7 +1,8 @@
 import SEO from '../../components/ui/SEO'
+import Breadcrumb from '../../components/ui/Breadcrumb'
 import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import { sendConfirmationEmail } from '../../lib/email'
+import { sendConfirmationEmail, sendAdminNotification } from '../../lib/email'
 import { CheckCircle, Loader, Shield } from 'lucide-react'
 
 const services = [
@@ -45,8 +46,10 @@ export default function Reservation() {
       return
     }
 
-    // Envoi email de confirmation au client
-    await sendConfirmationEmail(payload)
+    await Promise.all([
+      sendConfirmationEmail(payload),
+      sendAdminNotification(payload),
+    ])
 
     setLoading(false)
     setSuccess(true)
@@ -64,12 +67,17 @@ export default function Reservation() {
             Votre demande a bien été reçue. Notre équipe vous contactera dans les plus brefs délais
             pour confirmer votre réservation.
           </p>
-          <button
-            onClick={() => { setSuccess(false); setForm({ nom: '', prenom: '', email: '', telephone: '', service: '', date_debut: '', date_fin: '', lieu: '', nombre_agents: '1', details: '' }) }}
-            className="btn-gold mt-8 inline-block"
-          >
-            Nouvelle réservation
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+            <button
+              onClick={() => { setSuccess(false); setForm({ nom: '', prenom: '', email: '', telephone: '', service: '', date_debut: '', date_fin: '', lieu: '', nombre_agents: '1', details: '' }) }}
+              className="btn-outline-gold"
+            >
+              Nouvelle réservation
+            </button>
+            <a href="/suivi" className="btn-gold inline-flex items-center justify-center gap-2">
+              Suivre ma réservation
+            </a>
+          </div>
         </div>
       </div>
     )
@@ -83,6 +91,7 @@ export default function Reservation() {
         path="/reservation"
       />
       <div className="bg-dark-900">
+      <Breadcrumb />
       <section className="py-20 px-4 bg-dark-800 border-b border-dark-600">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gold-400 text-sm tracking-widest uppercase font-medium mb-3">Réservation</p>
