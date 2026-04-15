@@ -23,10 +23,19 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            {logoUrl
-              ? <img src={logoUrl} alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
-              : <img src="/logo.svg" alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
-            }
+            <img
+              src={logoUrl || '/logo.png'}
+              alt="Turbo Sécurity"
+              className="h-14 w-auto object-contain"
+              style={{ mixBlendMode: 'screen' }}
+              onError={(e) => {
+                if (e.currentTarget.src.includes('logo.png')) {
+                  e.currentTarget.style.mixBlendMode = 'normal'
+                  e.currentTarget.className = 'h-10 w-auto object-contain'
+                  e.currentTarget.src = '/logo.svg'
+                }
+              }}
+            />
           </Link>
 
           {/* Desktop links */}

@@ -11,10 +11,19 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center mb-4">
-              {c('logo_url')
-                ? <img src={c('logo_url')} alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
-                : <img src="/logo.svg" alt="Turbo Sécurity" className="h-10 w-auto object-contain" />
-              }
+              <img
+                src={c('logo_url') || '/logo.png'}
+                alt="Turbo Sécurity"
+                className="h-14 w-auto object-contain"
+                style={{ mixBlendMode: 'screen' }}
+                onError={(e) => {
+                  if (e.currentTarget.src.includes('logo.png')) {
+                    e.currentTarget.style.mixBlendMode = 'normal'
+                    e.currentTarget.className = 'h-10 w-auto object-contain'
+                    e.currentTarget.src = '/logo.svg'
+                  }
+                }}
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">{c('footer_description')}</p>
           </div>
