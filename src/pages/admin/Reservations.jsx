@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
-import { Search, Eye, X, ChevronDown } from 'lucide-react'
+import { Search, Eye, X, ChevronDown, FileDown } from 'lucide-react'
 
 const statusOptions = [
   { value: 'en_attente', label: 'En attente', color: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20' },
@@ -11,6 +11,24 @@ const statusOptions = [
 
 const getStatusStyle = v => statusOptions.find(s => s.value === v)?.color || 'bg-gray-500/10 text-gray-400'
 const getStatusLabel = v => statusOptions.find(s => s.value === v)?.label || v
+
+function exportCSV(data) {
+  const headers = ['Nom', 'Prénom', 'Email', 'Téléphone', 'Service', 'Lieu', 'Date début', 'Date fin', 'Agents', 'Statut', 'Détails']
+  const rows = data.map(r => [
+    r.nom, r.prenom, r.email, r.telephone, r.service, r.lieu,
+    r.date_debut ? new Date(r.date_debut).toLocaleDateString('fr-FR') : '',
+    r.date_fin ? new Date(r.date_fin).toLocaleDateString('fr-FR') : '',
+    r.nombre_agents, r.statut, r.details || '',
+  ])
+  const csv = [headers, ...rows].map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n')
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `reservations_${new Date().toISOString().split('T')[0]}.csv`
+  a.click()
+  URL.revokeObjectURL(url)
+}
 
 export default function Reservations() {
   const [reservations, setReservations] = useState([])
@@ -51,6 +69,12 @@ export default function Reservations() {
           <h2 className="text-white text-2xl font-semibold font-serif">Réservations</h2>
           <p className="text-gray-400 text-sm mt-1">{reservations.length} réservation(s) au total</p>
         </div>
+        <button
+          onClick={() => exportCSV(filtered)}
+          className="flex items-center gap-2 bg-dark-700 border border-dark-500 hover:border-gold-500/40 text-gray-300 hover:text-gold-400 text-sm px-4 py-2 rounded-sm transition-colors"
+        >
+          <FileDown className="w-4 h-4" /> Exporter CSV
+        </button>
       </div>
 
       {/* Filters */}

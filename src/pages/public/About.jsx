@@ -1,4 +1,5 @@
 import SEO from '../../components/ui/SEO'
+import Breadcrumb from '../../components/ui/Breadcrumb'
 import { Shield, Award, Users, Target } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import GlowOrb from '../../components/ui/GlowOrb'
@@ -29,6 +30,7 @@ export default function About() {
         path="/a-propos"
       />
       <div className="bg-dark-900">
+      <Breadcrumb />
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />
@@ -87,6 +89,36 @@ export default function About() {
         </div>
       </section>
 
+      {/* Videos */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        <GlowOrb className="w-96 h-96 top-0 left-0 opacity-8" slow />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <ScrollReveal direction="fade">
+              <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">En Action</p>
+              <h2 className="section-title">Nos équipes sur le terrain</h2>
+            </ScrollReveal>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {['/video1.mp4', '/video2.mp4'].map((src, i) => (
+              <ScrollReveal key={i} direction={i === 0 ? 'left' : 'right'} delay={`${i * 150}ms`}>
+                <div className="relative rounded-sm overflow-hidden border border-dark-500 glowing-card group">
+                  <video
+                    className="w-full aspect-video object-cover"
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={src} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 border border-gold-500/10 rounded-sm pointer-events-none group-hover:border-gold-500/30 transition-colors duration-300" />
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="relative py-20 px-4 bg-dark-800 border-y border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-32 top-0 left-1/2 -translate-x-1/2 opacity-15" slow />
@@ -125,10 +157,14 @@ export default function About() {
             {team.map(({ name, role, exp }, i) => (
               <ScrollReveal key={name} direction="up" delay={`${i * 100}ms`}>
               <div className="card-dark glowing-card p-6 text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-gold-700 to-gold-500 rounded-sm flex items-center justify-center mx-auto mb-4">
-                  <span className="text-dark-900 font-serif font-bold text-xl">
-                    {name.split(' ').map(n => n[0]).join('')}
-                  </span>
+                <div className="relative w-16 h-16 mx-auto mb-4">
+                  <div className="absolute inset-0 rounded-sm bg-gradient-to-br from-gold-600/30 to-gold-400/10 border border-gold-500/40" />
+                  <div className="absolute inset-[3px] rounded-sm bg-dark-600 flex items-center justify-center">
+                    <span className="text-gold-400 font-serif font-bold text-xl">
+                      {name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                  <div className="absolute -inset-[1px] rounded-sm border border-gold-500/20" />
                 </div>
                 <h3 className="text-white font-semibold text-sm mb-1">{name}</h3>
                 <p className="text-gold-400 text-xs mb-2">{role}</p>
@@ -137,6 +173,45 @@ export default function About() {
               </ScrollReveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Galerie */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        <GlowOrb className="w-80 h-80 top-0 right-0 opacity-8" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <ScrollReveal direction="fade">
+              <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">Galerie</p>
+              <h2 className="section-title">Nos missions en images</h2>
+            </ScrollReveal>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[
+              { label: 'Protection VIP', col: 'md:col-span-2' },
+              { label: 'Escorte sécurisée', col: '' },
+              { label: 'Événementiel', col: '' },
+              { label: 'Formation', col: '' },
+              { label: 'International', col: 'md:col-span-2' },
+            ].map(({ label, col }, i) => (
+              <ScrollReveal key={i} direction="up" delay={`${i * 80}ms`}>
+                <div className={`relative overflow-hidden rounded-sm border border-dark-500 hover:border-gold-500/30 transition-colors duration-300 group ${col}`}>
+                  <div className="aspect-video bg-dark-700 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-10 h-10 bg-gold-500/10 border border-gold-500/20 rounded-sm flex items-center justify-center mx-auto mb-2">
+                        <Shield className="w-5 h-5 text-gold-400/50" />
+                      </div>
+                      <p className="text-gray-600 text-xs">{label}</p>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <p className="text-white text-sm font-medium">{label}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+          <p className="text-center text-gray-600 text-xs mt-6">Photos disponibles sur demande — confidentialité de nos clients respectée</p>
         </div>
       </section>
 

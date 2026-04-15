@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import SEO from '../../components/ui/SEO'
 import { Link } from 'react-router-dom'
 import { Shield, Star, Users, Award, ChevronRight, Eye, Lock, Zap } from 'lucide-react'
@@ -30,8 +31,15 @@ function StatItem({ valeur, label }) {
   )
 }
 
+const heroVideos = ['/video1.mp4', '/video2.mp4']
+
 export default function Home() {
   const { c } = useContent()
+  const [currentVideo, setCurrentVideo] = useState(0)
+
+  const handleVideoEnd = () => {
+    setCurrentVideo(prev => (prev + 1) % heroVideos.length)
+  }
 
   const services = [1,2,3,4].map(i => ({
     icon: serviceIcons[i-1],
@@ -53,18 +61,20 @@ export default function Home() {
       />
       <div className="bg-dark-900">
       {/* ─── Hero ─────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-screen flex items-center justify-center overflow-hidden">
         <video
+          key={currentVideo}
           className="absolute inset-0 w-full h-full object-cover z-0"
-          autoPlay muted loop playsInline
-          poster="/hero-poster.jpg"
+          autoPlay muted playsInline
+          onEnded={handleVideoEnd}
         >
-          <source src="/hero-video.mp4" type="video/mp4" />
-          <source src="/hero-video.webm" type="video/webm" />
+          <source src={heroVideos[currentVideo]} type="video/mp4" />
         </video>
 
         <div className="absolute inset-0 bg-dark-900/70 z-[1]" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-dark-900 to-transparent z-[1]" />
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-dark-900/60 to-transparent z-[1]" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-dark-900/60 to-transparent z-[1]" />
 
         <ParticleCanvas />
 
@@ -83,6 +93,11 @@ export default function Home() {
             </span>
           </div>
 
+          <div className="hero-animate-delay-1 flex items-center justify-center gap-4 mb-6">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-gold-500" />
+            <div className="w-1.5 h-1.5 bg-gold-400 rounded-full" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-gold-500" />
+          </div>
           <h1 className="hero-animate-delay-1 font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             <span className="text-shimmer">{c('hero_titre')}</span>
           </h1>

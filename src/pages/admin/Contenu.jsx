@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { defaultContent } from '../../lib/defaultContent'
-import { invalidateContentCache } from '../../hooks/useContent'
+import { invalidateContentCache, saveTranslation } from '../../hooks/useContent'
 import { Save, Check, ChevronDown, ChevronUp, Globe, Upload, ImageIcon, Loader } from 'lucide-react'
+
+const LANGS = [
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'en', label: 'English',  flag: '🇬🇧' },
+  { code: 'ar', label: 'العربية',  flag: '🇸🇦' },
+]
 
 function LogoUploader({ currentUrl, onSaved }) {
   const inputRef = useRef(null)
@@ -13,33 +19,16 @@ function LogoUploader({ currentUrl, onSaved }) {
   const handleFile = async e => {
     const file = e.target.files[0]
     if (!file) return
-
-    // Preview local immédiat
     setPreview(URL.createObjectURL(file))
     setUploading(true)
-
     const ext = file.name.split('.').pop()
     const path = `logo/logo.${ext}`
-
-    const { error: uploadError } = await supabase.storage
-      .from('assets')
-      .upload(path, file, { upsert: true, contentType: file.type })
-
-    if (uploadError) {
-      alert('Erreur upload : ' + uploadError.message)
-      setUploading(false)
-      return
-    }
-
+    const { error: uploadError } = await supabase.storage.from('assets').upload(path, file, { upsert: true, contentType: file.type })
+    if (uploadError) { alert('Erreur upload : ' + uploadError.message); setUploading(false); return }
     const { data } = supabase.storage.from('assets').getPublicUrl(path)
     const url = data.publicUrl
-
-    // Sauvegarde l'URL dans contenu_site
-    await supabase.from('contenu_site').upsert(
-      [{ cle: 'logo_url', valeur: url }],
-      { onConflict: 'cle' }
-    )
-
+    // logo_url stored in fr (non-translated, used as global)
+    await saveTranslation('logo_url', 'fr', url)
     invalidateContentCache()
     setPreview(url)
     setUploading(false)
@@ -52,44 +41,17 @@ function LogoUploader({ currentUrl, onSaved }) {
     <div className="card-dark overflow-hidden">
       <div className="px-6 py-4 border-b border-dark-500 flex items-center justify-between">
         <span className="text-white font-medium text-sm">Logo de la société</span>
-        {saved && (
-          <span className="flex items-center gap-1 text-green-400 text-xs">
-            <Check className="w-3.5 h-3.5" /> Sauvegardé
-          </span>
-        )}
+        {saved && <span className="flex items-center gap-1 text-green-400 text-xs"><Check className="w-3.5 h-3.5" /> Sauvegardé</span>}
       </div>
-
       <div className="p-6 flex flex-col sm:flex-row items-start gap-6">
-        {/* Aperçu */}
         <div className="w-40 h-24 bg-dark-600 border border-dark-400 rounded-sm flex items-center justify-center flex-shrink-0 overflow-hidden">
-          {preview
-            ? <img src={preview} alt="Logo" className="max-w-full max-h-full object-contain p-2" />
-            : <ImageIcon className="w-8 h-8 text-dark-400" />
-          }
+          {preview ? <img src={preview} alt="Logo" className="max-w-full max-h-full object-contain p-2" /> : <ImageIcon className="w-8 h-8 text-dark-400" />}
         </div>
-
-        {/* Upload */}
         <div className="flex-1">
-          <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-            Formats acceptés : PNG, JPG, SVG, WEBP. Le logo remplace automatiquement
-            l'icône bouclier dans la navbar et le footer.
-          </p>
-          <input
-            ref={inputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFile}
-          />
-          <button
-            onClick={() => inputRef.current.click()}
-            disabled={uploading}
-            className="btn-gold inline-flex items-center gap-2 text-sm disabled:opacity-70"
-          >
-            {uploading
-              ? <><Loader className="w-4 h-4 animate-spin" /> Upload en cours...</>
-              : <><Upload className="w-4 h-4" /> Choisir un logo</>
-            }
+          <p className="text-gray-400 text-sm mb-4 leading-relaxed">Formats acceptés : PNG, JPG, SVG, WEBP.</p>
+          <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+          <button onClick={() => inputRef.current.click()} disabled={uploading} className="btn-gold inline-flex items-center gap-2 text-sm disabled:opacity-70">
+            {uploading ? <><Loader className="w-4 h-4 animate-spin" /> Upload en cours...</> : <><Upload className="w-4 h-4" /> Choisir un logo</>}
           </button>
         </div>
       </div>
@@ -99,19 +61,17 @@ function LogoUploader({ currentUrl, onSaved }) {
 
 const sections = [
   {
-    id: 'hero',
-    label: 'Page d\'accueil — Hero',
+    id: 'hero', label: "Page d'accueil — Hero",
     fields: [
-      { key: 'hero_badge',      label: 'Badge',        type: 'text' },
-      { key: 'hero_titre',      label: 'Titre',        type: 'text' },
-      { key: 'hero_sous_titre', label: 'Sous-titre',   type: 'textarea' },
-      { key: 'hero_cta1',       label: 'Bouton 1',     type: 'text' },
-      { key: 'hero_cta2',       label: 'Bouton 2',     type: 'text' },
+      { key: 'hero_badge',      label: 'Badge',      type: 'text' },
+      { key: 'hero_titre',      label: 'Titre',      type: 'text' },
+      { key: 'hero_sous_titre', label: 'Sous-titre', type: 'textarea' },
+      { key: 'hero_cta1',       label: 'Bouton 1',   type: 'text' },
+      { key: 'hero_cta2',       label: 'Bouton 2',   type: 'text' },
     ],
   },
   {
-    id: 'stats',
-    label: 'Statistiques',
+    id: 'stats', label: 'Statistiques',
     fields: [
       { key: 'stat1_valeur', label: 'Stat 1 — Valeur', type: 'text' },
       { key: 'stat1_label',  label: 'Stat 1 — Label',  type: 'text' },
@@ -124,8 +84,7 @@ const sections = [
     ],
   },
   {
-    id: 'services',
-    label: 'Services (Accueil)',
+    id: 'services', label: 'Services (Accueil)',
     fields: [
       { key: 'service1_titre', label: 'Service 1 — Titre',       type: 'text' },
       { key: 'service1_desc',  label: 'Service 1 — Description', type: 'textarea' },
@@ -138,38 +97,34 @@ const sections = [
     ],
   },
   {
-    id: 'cta',
-    label: 'Bloc d\'appel à l\'action',
+    id: 'cta', label: "Bloc d'appel à l'action",
     fields: [
-      { key: 'cta_titre', label: 'Titre', type: 'text' },
-      { key: 'cta_texte', label: 'Texte', type: 'textarea' },
+      { key: 'cta_titre', label: 'Titre',  type: 'text' },
+      { key: 'cta_texte', label: 'Texte',  type: 'textarea' },
     ],
   },
   {
-    id: 'apropos',
-    label: 'Page À Propos',
+    id: 'apropos', label: 'Page À Propos',
     fields: [
-      { key: 'apropos_titre',       label: 'Titre principal',  type: 'text' },
-      { key: 'apropos_sous_titre',  label: 'Sous-titre',       type: 'textarea' },
-      { key: 'apropos_histoire_p1', label: 'Histoire — §1',    type: 'textarea' },
-      { key: 'apropos_histoire_p2', label: 'Histoire — §2',    type: 'textarea' },
-      { key: 'apropos_histoire_p3', label: 'Histoire — §3',    type: 'textarea' },
+      { key: 'apropos_titre',       label: 'Titre principal', type: 'text' },
+      { key: 'apropos_sous_titre',  label: 'Sous-titre',      type: 'textarea' },
+      { key: 'apropos_histoire_p1', label: 'Histoire — §1',   type: 'textarea' },
+      { key: 'apropos_histoire_p2', label: 'Histoire — §2',   type: 'textarea' },
+      { key: 'apropos_histoire_p3', label: 'Histoire — §3',   type: 'textarea' },
     ],
   },
   {
-    id: 'contact',
-    label: 'Contact & Coordonnées',
+    id: 'contact', label: 'Contact & Coordonnées',
     fields: [
-      { key: 'contact_titre',      label: 'Titre',       type: 'text' },
-      { key: 'contact_sous_titre', label: 'Sous-titre',  type: 'textarea' },
-      { key: 'contact_telephone',  label: 'Téléphone',   type: 'text' },
-      { key: 'contact_email',      label: 'Email',       type: 'text' },
-      { key: 'contact_adresse',    label: 'Adresse',     type: 'text' },
+      { key: 'contact_titre',      label: 'Titre',      type: 'text' },
+      { key: 'contact_sous_titre', label: 'Sous-titre', type: 'textarea' },
+      { key: 'contact_telephone',  label: 'Téléphone',  type: 'text' },
+      { key: 'contact_email',      label: 'Email',      type: 'text' },
+      { key: 'contact_adresse',    label: 'Adresse',    type: 'text' },
     ],
   },
   {
-    id: 'footer',
-    label: 'Pied de page',
+    id: 'footer', label: 'Pied de page',
     fields: [
       { key: 'footer_description', label: 'Description', type: 'textarea' },
     ],
@@ -181,17 +136,10 @@ function SectionEditor({ section, values, onChange, onSave, saving, saved }) {
 
   return (
     <div className="card-dark overflow-hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-4 hover:bg-dark-600/50 transition-colors"
-      >
+      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-6 py-4 hover:bg-dark-600/50 transition-colors">
         <span className="text-white font-medium text-sm">{section.label}</span>
         <div className="flex items-center gap-3">
-          {saved && (
-            <span className="flex items-center gap-1 text-green-400 text-xs">
-              <Check className="w-3.5 h-3.5" /> Sauvegardé
-            </span>
-          )}
+          {saved && <span className="flex items-center gap-1 text-green-400 text-xs"><Check className="w-3.5 h-3.5" /> Sauvegardé</span>}
           {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
         </div>
       </button>
@@ -200,15 +148,14 @@ function SectionEditor({ section, values, onChange, onSave, saving, saved }) {
         <div className="border-t border-dark-500 p-6 space-y-5">
           {section.fields.map(field => (
             <div key={field.key}>
-              <label className="block text-xs text-gray-400 uppercase tracking-wide mb-2">
-                {field.label}
-              </label>
+              <label className="block text-xs text-gray-400 uppercase tracking-wide mb-2">{field.label}</label>
               {field.type === 'textarea' ? (
                 <textarea
                   value={values[field.key] ?? defaultContent[field.key] ?? ''}
                   onChange={e => onChange(field.key, e.target.value)}
                   rows={3}
                   className="w-full bg-dark-600 border border-dark-500 text-white px-4 py-2.5 rounded-sm text-sm focus:border-gold-500 focus:outline-none transition-colors resize-y"
+                  dir={field.key && 'auto'}
                 />
               ) : (
                 <input
@@ -216,21 +163,14 @@ function SectionEditor({ section, values, onChange, onSave, saving, saved }) {
                   value={values[field.key] ?? defaultContent[field.key] ?? ''}
                   onChange={e => onChange(field.key, e.target.value)}
                   className="w-full bg-dark-600 border border-dark-500 text-white px-4 py-2.5 rounded-sm text-sm focus:border-gold-500 focus:outline-none transition-colors"
+                  dir="auto"
                 />
               )}
             </div>
           ))}
-
           <div className="flex justify-end pt-2">
-            <button
-              onClick={() => onSave(section.id, section.fields.map(f => f.key))}
-              disabled={saving}
-              className="btn-gold inline-flex items-center gap-2 text-sm disabled:opacity-70"
-            >
-              {saving
-                ? <><Save className="w-4 h-4 animate-pulse" /> Sauvegarde...</>
-                : <><Save className="w-4 h-4" /> Sauvegarder</>
-              }
+            <button onClick={() => onSave(section.id, section.fields.map(f => f.key))} disabled={saving} className="btn-gold inline-flex items-center gap-2 text-sm disabled:opacity-70">
+              {saving ? <><Save className="w-4 h-4 animate-pulse" /> Sauvegarde...</> : <><Save className="w-4 h-4" /> Sauvegarder</>}
             </button>
           </div>
         </div>
@@ -240,47 +180,44 @@ function SectionEditor({ section, values, onChange, onSave, saving, saved }) {
 }
 
 export default function Contenu() {
-  const [values, setValues] = useState({ ...defaultContent })
+  const [activeLang, setActiveLang] = useState('fr')
+  const [valuesByLang, setValuesByLang] = useState({ fr: { ...defaultContent }, en: {}, ar: {} })
   const [saving, setSaving] = useState(null)
-  const [saved, setSaved]   = useState({})
+  const [saved, setSaved] = useState({})
   const [saveError, setSaveError] = useState(null)
   const [loading, setLoading] = useState(true)
   const [logoUrl, setLogoUrl] = useState('')
 
   useEffect(() => {
-    supabase.from('contenu_site').select('cle, valeur').then(({ data }) => {
+    supabase.from('traductions').select('cle, langue, valeur').then(({ data }) => {
       if (data) {
-        const merged = { ...defaultContent }
-        data.forEach(row => { merged[row.cle] = row.valeur })
-        setValues(merged)
-        setLogoUrl(merged.logo_url || '')
+        const byLang = { fr: { ...defaultContent }, en: {}, ar: {} }
+        data.forEach(row => {
+          if (!byLang[row.langue]) byLang[row.langue] = {}
+          byLang[row.langue][row.cle] = row.valeur
+        })
+        setValuesByLang(byLang)
+        setLogoUrl(byLang.fr?.logo_url || '')
       }
       setLoading(false)
     })
   }, [])
 
-  const handleChange = (key, val) => setValues(prev => ({ ...prev, [key]: val }))
+  const values = valuesByLang[activeLang] || {}
+  const handleChange = (key, val) => {
+    setValuesByLang(prev => ({ ...prev, [activeLang]: { ...prev[activeLang], [key]: val } }))
+  }
 
   const handleSave = async (sectionId, keys) => {
     setSaving(sectionId)
     setSaveError(null)
-
-    const upserts = keys.map(key => ({ cle: key, valeur: values[key] ?? '' }))
-
-    const { error } = await supabase
-      .from('contenu_site')
-      .upsert(upserts, { onConflict: 'cle' })
-
+    const upserts = keys.map(key => ({ cle: key, langue: activeLang, valeur: values[key] ?? '' }))
+    const { error } = await supabase.from('traductions').upsert(upserts, { onConflict: 'cle,langue' })
     setSaving(null)
-
-    if (error) {
-      setSaveError(`Erreur lors de la sauvegarde : ${error.message}`)
-      return
-    }
-
+    if (error) { setSaveError(`Erreur : ${error.message}`); return }
     invalidateContentCache()
-    setSaved(prev => ({ ...prev, [sectionId]: true }))
-    setTimeout(() => setSaved(prev => ({ ...prev, [sectionId]: false })), 3000)
+    setSaved(prev => ({ ...prev, [`${sectionId}_${activeLang}`]: true }))
+    setTimeout(() => setSaved(prev => ({ ...prev, [`${sectionId}_${activeLang}`]: false })), 3000)
   }
 
   return (
@@ -288,43 +225,56 @@ export default function Contenu() {
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-white text-2xl font-semibold font-serif">Contenu du site</h2>
-          <p className="text-gray-400 text-sm mt-1">
-            Modifiez les textes de chaque section — les changements sont visibles immédiatement.
-          </p>
+          <p className="text-gray-400 text-sm mt-1">Modifiez les textes dans chaque langue.</p>
         </div>
-        <a
-          href="/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-outline-gold text-sm inline-flex items-center gap-2"
-        >
+        <a href="/" target="_blank" rel="noopener noreferrer" className="btn-outline-gold text-sm inline-flex items-center gap-2">
           <Globe className="w-4 h-4" /> Voir le site
         </a>
       </div>
 
-      {saveError && (
-        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-sm">
-          {saveError}
+      {/* Language tabs */}
+      <div className="flex gap-1 border border-dark-500 rounded-sm overflow-hidden w-fit">
+        {LANGS.map(({ code, label, flag }) => (
+          <button
+            key={code}
+            onClick={() => setActiveLang(code)}
+            className={`px-4 py-2 text-sm font-medium flex items-center gap-2 transition-colors ${
+              activeLang === code
+                ? 'bg-gold-500/20 text-gold-400 border-r border-dark-500'
+                : 'text-gray-400 hover:text-gray-200 border-r border-dark-500 last:border-r-0'
+            }`}
+          >
+            <span>{flag}</span> {label}
+          </button>
+        ))}
+      </div>
+
+      {activeLang !== 'fr' && (
+        <div className="bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs px-4 py-3 rounded-sm">
+          Les champs vides afficheront automatiquement le contenu français par défaut.
         </div>
+      )}
+
+      {saveError && (
+        <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-sm">{saveError}</div>
       )}
 
       {loading ? (
         <div className="text-center text-gray-400 py-12 text-sm">Chargement du contenu...</div>
       ) : (
         <div className="space-y-3">
-          <LogoUploader
-            currentUrl={logoUrl}
-            onSaved={url => setLogoUrl(url)}
-          />
+          {activeLang === 'fr' && (
+            <LogoUploader currentUrl={logoUrl} onSaved={url => setLogoUrl(url)} />
+          )}
           {sections.map(section => (
             <SectionEditor
-              key={section.id}
+              key={`${section.id}_${activeLang}`}
               section={section}
               values={values}
               onChange={handleChange}
               onSave={handleSave}
               saving={saving === section.id}
-              saved={!!saved[section.id]}
+              saved={!!saved[`${section.id}_${activeLang}`]}
             />
           ))}
         </div>

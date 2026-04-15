@@ -29,7 +29,7 @@ body {
     @apply border border-gold-500 text-gold-400 font-semibold px-6 py-3 rounded-sm hover:bg-gold-500 hover:text-dark-900 transition-all duration-300;
   }
   .section-title {
-    @apply font-serif text-3xl md:text-4xl font-semibold text-white;
+    @apply font-serif text-4xl md:text-5xl font-semibold text-white;
   }
   .gold-text {
     @apply text-gold-400;
@@ -142,3 +142,22 @@ body {
 .badge-pulse {
   animation: badgePulse 3s ease-in-out infinite;
 }
+
+/* ─── Light mode overrides ───────────────────────────────── */
+.light-mode {
+  background-color: #f8f6f1;
+  color: #1a1a1a;
+}
+.light-mode .bg-dark-900 { background-color: #f8f6f1 !important; }
+.light-mode .bg-dark-800 { background-color: #f0ece3 !important; }
+.light-mode .bg-dark-700 { background-color: #e8e2d6 !important; }
+.light-mode .bg-dark-600 { background-color: #ddd7c9 !important; }
+.light-mode .border-dark-600 { border-color: #d0c8b8 !important; }
+.light-mode .border-dark-500 { border-color: #c8bea8 !important; }
+.light-mode .text-white { color: #1a1a1a !important; }
+.light-mode .text-gray-300 { color: #3a3530 !important; }
+.light-mode .text-gray-400 { color: #5a5248 !important; }
+.light-mode .text-gray-500 { color: #7a7268 !important; }
+.light-mode .text-gray-600 { color: #8a8278 !important; }
+.light-mode nav { background-color: rgba(240, 236, 227, 0.95) !important; }
+.light-mode .card-dark { background-color: #e8e2d6 !important; border-color: #c8bea8 !important; }

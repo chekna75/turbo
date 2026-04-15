@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext'
+import LoadingScreen from './components/ui/LoadingScreen'
 
 import Layout from './components/layout/Layout'
 import AdminLayout from './components/admin/AdminLayout'
@@ -10,6 +13,7 @@ import About from './pages/public/About'
 import Reservation from './pages/public/Reservation'
 import Contact from './pages/public/Contact'
 import Actualites from './pages/public/Actualites'
+import Suivi from './pages/public/Suivi'
 
 import Login from './pages/admin/Login'
 import Dashboard from './pages/admin/Dashboard'
@@ -31,7 +35,11 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
+  const [loaded, setLoaded] = useState(false)
+
   return (
+    <ThemeProvider>
+      {!loaded && <LoadingScreen onDone={() => setLoaded(true)} />}
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -42,6 +50,7 @@ function App() {
           <Route path="/reservation" element={<Layout><Reservation /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
           <Route path="/actualites" element={<Layout><Actualites /></Layout>} />
+          <Route path="/suivi" element={<Layout><Suivi /></Layout>} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<Login />} />
@@ -71,6 +80,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   )
 }
 

@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "Home", "services": "Services", "about": "About",
+    "news": "News", "contact": "Contact", "book": "Book Now"
+  },
+  "footer": {
+    "nav": "Navigation", "rights": "All rights reserved.", "tagline": "Professional close protection"
+  },
+  "cookie": {
+    "title": "Cookies & Privacy",
+    "text": "We use cookies to improve your experience. In accordance with GDPR, your consent is required.",
+    "accept": "Accept", "refuse": "Decline"
+  },
+  "common": {
+    "learn_more": "Learn more", "all_services": "View all services",
+    "book_now": "Book now", "contact_us": "Contact us",
+    "confidential_form": "Confidential and secure form",
+    "send": "Send", "sending": "Sending...", "loading": "Loading..."
+  },
+  "services_page": {
+    "seo_title": "Our Services — VIP Protection, Escort, Event Security",
+    "seo_desc": "Discover all our protection services: VIP bodyguard, secure escort, event security, surveillance, international protection. Elite agents available 24/7.",
+    "badge": "Our Services",
+    "title": "Protection Services",
+    "subtitle": "A complete range of security solutions tailored to your needs, provided by elite professionals.",
+    "flagship": "Featured",
+    "cta_title": "Need a custom service?",
+    "cta_subtitle": "Every situation is unique. Contact us for a tailored assessment.",
+    "items": [
+      {
+        "title": "VIP Protection",
+        "desc": "Dedicated bodyguard service for celebrities, corporate executives, artists and public figures. Our agents ensure your security 24/7 with absolute discretion.",
+        "features": ["Threat analysis", "Permanent close protection", "Coordination with law enforcement", "Daily report"]
+      },
+      {
+        "title": "Secure Escort",
+        "desc": "Secure travel with armored vehicles and drivers trained in anti-aggression techniques and exceptional driving.",
+        "features": ["B6/B7 grade armored vehicles", "Certified drivers", "Secure routes", "Counter-surveillance"]
+      },
+      {
+        "title": "Event Security",
+        "desc": "Complete security management for your private events, VIP parties, seminars and conferences.",
+        "features": ["Access control", "Crowd management", "Plain-clothes or uniformed agents", "Logistical coordination"]
+      },
+      {
+        "title": "Surveillance & Reconnaissance",
+        "desc": "Surveillance and intelligence missions to identify and neutralize potential threats before they materialize.",
+        "features": ["Static surveillance", "Counter-surveillance", "Threat report", "Risk analysis"]
+      },
+      {
+        "title": "International Protection",
+        "desc": "Secure accompaniment during your international travel, with coordination of local teams.",
+        "features": ["Coverage in 12 countries", "Local network coordination", "Geopolitical analysis", "Crisis management"]
+      },
+      {
+        "title": "Rapid Response",
+        "desc": "Response teams available in less than 15 minutes in Paris and the Île-de-France region.",
+        "features": ["< 15 min response in Paris", "CQC-trained teams", "Adapted equipment", "Available 24/7"]
+      }
+    ],
+    "faq_title": "Frequently Asked Questions",
+    "faqs": [
+      { "q": "How far in advance do I need to book?", "r": "We recommend a minimum of 48 hours for standard missions. For international or event missions, plan 1 week ahead. In emergencies, our line is available 24/7." },
+      { "q": "Are your agents armed?", "r": "This depends on the assessed threat level and local regulations. All our agents are trained in close protection techniques, with or without weapons depending on needs and authorizations." },
+      { "q": "Do you operate internationally?", "r": "Yes, we operate in 12 countries. Each international mission is subject to prior geopolitical analysis and coordination with certified local partners." },
+      { "q": "How do you guarantee confidentiality?", "r": "Each agent signs a strict non-disclosure agreement. Our communication systems are encrypted. No client information is shared without explicit consent." },
+      { "q": "What are your rates?", "r": "Our rates are established by quote based on the mission, number of agents, duration and threat level. Contact us for a free confidential consultation." }
+    ]
+  },
+  "about_page": {
+    "seo_title": "About — Our Story & Our Team",
+    "seo_desc": "Founded by former special forces members, Turbo Sécurity is the reference in close protection in France.",
+    "badge": "Who we are",
+    "history_badge": "Our Story",
+    "history_title": "15 years of excellence in security",
+    "values_badge": "Our Values",
+    "values_title": "What defines us",
+    "team_badge": "Leadership",
+    "team_title": "Our Leadership Team",
+    "gallery_badge": "Gallery",
+    "gallery_title": "Our missions in pictures",
+    "gallery_confidential": "Photos available on request — client confidentiality respected",
+    "video_badge": "In Action",
+    "video_title": "Our teams in the field",
+    "cta_title": "Join our protected clients",
+    "cta_subtitle": "Contact our team for a confidential consultation.",
+    "timeline": [
+      { "year": "2009", "event": "Founding of Turbo Sécurity in Paris" },
+      { "year": "2012", "event": "Expansion to international missions" },
+      { "year": "2015", "event": "Creation of the rapid intervention unit" },
+      { "year": "2018", "event": "Opening of the internal training center" },
+      { "year": "2022", "event": "500th protected client — coverage in 12 countries" },
+      { "year": "2024", "event": "ISO 18788 Private Security Certification" }
+    ],
+    "values": [
+      { "title": "Discretion", "desc": "Client confidentiality is sacred. Every agent signs a strict non-disclosure agreement." },
+      { "title": "Excellence", "desc": "We only recruit professionals from special forces and intelligence services." },
+      { "title": "Team", "desc": "A tight-knit team, trained together, capable of rapidly coordinating in crisis situations." },
+      { "title": "Precision", "desc": "Every mission is planned rigorously. Nothing is left to chance in our preparation." }
+    ],
+    "team": [
+      { "name": "Jean-Marc Dubois", "role": "Director of Operations", "exp": "Ex-GIGN · 20 years of experience" },
+      { "name": "Sophie Laurent", "role": "Head of Intelligence", "exp": "Ex-DGSI · 15 years of experience" },
+      { "name": "Karim Benali", "role": "VIP Protocol Chief", "exp": "Ex-GSPR · 12 years of experience" },
+      { "name": "Thomas Mercier", "role": "Head of Int. Operations", "exp": "Ex-RAID · 18 years of experience" }
+    ],
+    "gallery_items": ["VIP Protection", "Secure Escort", "Events", "Training", "International"]
+  },
+  "contact_page": {
+    "seo_title": "Contact — Available 24/7",
+    "seo_desc": "Contact Turbo Sécurity for any close protection request. Our team is available 24/7.",
+    "badge": "Contact",
+    "info_badge": "Information",
+    "urgent": "For urgent requests, we recommend calling us directly. Our operators are available 24/7.",
+    "available": "Available 24/7",
+    "available_sub": "Emergency line permanently operational.",
+    "phone": "Phone", "email": "Email", "address": "Address",
+    "send": "Send message", "sending": "Sending...",
+    "success_title": "Message sent",
+    "success_sub": "We will get back to you as soon as possible.",
+    "new": "New message",
+    "fields": { "name": "Name", "email": "Email", "subject": "Subject", "message": "Message",
+      "name_ph": "Your name", "subject_ph": "Subject of your message", "message_ph": "Your message..." }
+  },
+  "reservation_page": {
+    "seo_title": "Booking — Protection Request",
+    "seo_desc": "Book your close protection with Turbo Sécurity. Confidential and secure form. Response within 2 hours.",
+    "badge": "Booking",
+    "title": "Book Protection",
+    "subtitle": "Fill out this confidential form. Our team will contact you within 2 hours.",
+    "send": "Submit request", "sending": "Submitting...",
+    "success_title": "Request submitted",
+    "success_sub": "Your request has been received. Our team will contact you shortly to confirm your reservation.",
+    "new": "New reservation", "track": "Track my reservation",
+    "fields": {
+      "last_name": "Last name", "first_name": "First name", "email": "Email", "phone": "Phone",
+      "service": "Desired service", "start_date": "Start date", "end_date": "End date",
+      "location": "Location / City", "agents": "Number of agents", "details": "Additional details",
+      "choose_service": "Choose a service", "location_ph": "Paris, France",
+      "details_ph": "Describe your security needs...", "agent": "agent", "agents_pl": "agents"
+    },
+    "services": ["VIP Protection", "Secure Escort", "Event Security", "Surveillance & Reconnaissance", "International Protection", "Rapid Response", "Other"]
+  },
+  "tracking_page": {
+    "badge": "Tracking",
+    "title": "Your reservation",
+    "subtitle": "Enter the email address used during your reservation to check its status.",
+    "search": "Search", "searching": "Searching...",
+    "not_found": "No reservation found for this email.",
+    "statuses": {
+      "en_attente": "Awaiting confirmation",
+      "confirmee": "Reservation confirmed",
+      "annulee": "Reservation cancelled",
+      "terminee": "Mission completed"
+    },
+    "fields": { "service": "Service", "location": "Location", "start": "Start date", "end": "End date", "agents": "Agents", "created": "Requested on" }
+  },
+  "home_page": {
+    "why_badge": "Why choose us",
+    "why_title": "Excellence in the service\nof your security",
+    "why_items": [
+      "Certified agents trained in the best techniques",
+      "Security protocols adapted to each situation",
+      "Teams available throughout France and internationally",
+      "Absolute confidentiality and professional discretion"
+    ],
+    "services_badge": "Our Expertise",
+    "services_title": "Tailor-made services",
+    "news_see_all": "View all news"
+  }
+}

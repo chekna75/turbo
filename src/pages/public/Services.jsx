@@ -1,6 +1,8 @@
 import SEO from '../../components/ui/SEO'
+import Breadcrumb from '../../components/ui/Breadcrumb'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Shield, Eye, Lock, Zap, Car, Globe, ChevronRight } from 'lucide-react'
+import { Shield, Eye, Lock, Zap, Car, Globe, ChevronRight, Plus, Minus } from 'lucide-react'
 import GlowOrb from '../../components/ui/GlowOrb'
 import ScrollReveal from '../../components/ui/ScrollReveal'
 
@@ -43,6 +45,47 @@ const services = [
   },
 ]
 
+const faqs = [
+  { q: 'Combien de temps à l\'avance faut-il réserver ?', r: 'Nous recommandons 48h minimum pour les missions standard. Pour les missions internationales ou événementielles, prévoyez 1 semaine. En cas d\'urgence, notre ligne est disponible 24h/24.' },
+  { q: 'Vos agents sont-ils armés ?', r: 'Cela dépend du niveau de menace évalué et des réglementations locales. Nos agents sont tous formés aux techniques de protection rapprochée, avec ou sans arme selon les besoins et autorisations.' },
+  { q: 'Intervenez-vous à l\'international ?', r: 'Oui, nous opérons dans 12 pays. Chaque mission internationale fait l\'objet d\'une analyse géopolitique préalable et d\'une coordination avec des partenaires locaux certifiés.' },
+  { q: 'Comment garantissez-vous la confidentialité ?', r: 'Chaque agent signe un accord de non-divulgation strict. Nos systèmes de communication sont chiffrés. Aucune information client n\'est partagée sans consentement explicite.' },
+  { q: 'Quels sont vos tarifs ?', r: 'Nos tarifs sont établis sur devis selon la mission, le nombre d\'agents, la durée et le niveau de menace. Contactez-nous pour une consultation confidentielle et gratuite.' },
+]
+
+function FAQ() {
+  const [open, setOpen] = useState(null)
+  return (
+    <section className="relative py-20 px-4 bg-dark-800 border-t border-dark-600 overflow-hidden">
+      <GlowOrb className="w-96 h-32 top-0 left-1/2 -translate-x-1/2 opacity-10" slow />
+      <div className="max-w-3xl mx-auto relative z-10">
+        <div className="text-center mb-12">
+          <p className="text-shimmer text-sm tracking-widest uppercase font-medium mb-3">FAQ</p>
+          <h2 className="section-title">Questions fréquentes</h2>
+        </div>
+        <div className="space-y-3">
+          {faqs.map(({ q, r }, i) => (
+            <div key={i} className="card-dark border border-dark-500 rounded-sm overflow-hidden">
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-dark-600/50 transition-colors"
+              >
+                <span className="text-white text-sm font-medium pr-4">{q}</span>
+                {open === i ? <Minus className="w-4 h-4 text-gold-400 flex-shrink-0" /> : <Plus className="w-4 h-4 text-gold-400 flex-shrink-0" />}
+              </button>
+              {open === i && (
+                <div className="px-6 pb-5 border-t border-dark-600">
+                  <p className="text-gray-400 text-sm leading-relaxed pt-4">{r}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Services() {
   return (
     <>
@@ -52,6 +95,7 @@ export default function Services() {
         path="/services"
       />
       <div className="bg-dark-900">
+      <Breadcrumb />
       {/* Hero */}
       <section className="relative py-20 px-4 bg-dark-800 border-b border-dark-600 overflow-hidden">
         <GlowOrb className="w-96 h-96 -top-20 -right-20 opacity-15" />
@@ -76,9 +120,16 @@ export default function Services() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map(({ icon: Icon, title, desc, features }, i) => (
               <ScrollReveal key={title} direction="up" delay={`${(i % 3) * 100}ms`}>
-              <div className="card-dark glowing-card p-8 flex flex-col h-full">
-                <div className="w-14 h-14 bg-gold-500/10 border border-gold-500/20 rounded-sm flex items-center justify-center mb-6">
-                  <Icon className="w-7 h-7 text-gold-400" />
+              <div className={`card-dark glowing-card p-8 flex flex-col h-full ${i === 0 ? 'border-gold-500/40 bg-gradient-to-b from-gold-500/5 to-transparent' : ''}`}>
+                {i === 0 && (
+                  <div className="flex justify-end mb-2">
+                    <span className="text-xs font-semibold tracking-widest uppercase text-gold-400 border border-gold-500/40 bg-gold-500/10 px-3 py-1 rounded-sm">
+                      Phare
+                    </span>
+                  </div>
+                )}
+                <div className={`w-14 h-14 rounded-sm flex items-center justify-center mb-6 ${i === 0 ? 'bg-gold-500/20 border border-gold-500/40' : 'bg-gold-500/10 border border-gold-500/20'}`}>
+                  <Icon className={`w-7 h-7 ${i === 0 ? 'text-gold-300' : 'text-gold-400'}`} />
                 </div>
                 <h3 className="text-white font-serif font-semibold text-xl mb-3">{title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">{desc}</p>
@@ -96,6 +147,8 @@ export default function Services() {
           </div>
         </div>
       </section>
+
+      <FAQ />
 
       {/* CTA */}
       <section className="relative py-16 px-4 bg-dark-800 border-t border-dark-600 overflow-hidden">
